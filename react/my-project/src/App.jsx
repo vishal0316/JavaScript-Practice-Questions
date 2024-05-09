@@ -6,6 +6,8 @@ function App() {
   const [charAllow, setCharAllow] = useState(false);
   const [password, setPassword] = useState("");
 
+  const passwordRef = useRef(null);
+
   const passwordGen = useCallback(() => {
     let pass = "";
     let str = "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz";
@@ -20,6 +22,8 @@ function App() {
 
     setPassword(pass);
   }, [length, numAllow, charAllow, setPassword]);
+
+  const copypassword = useCallback(() => {}, [password]);
 
   useEffect(() => {
     passwordGen();
@@ -37,9 +41,13 @@ function App() {
             className="outline-none w-full py-1 px-3"
             placeholder="Password"
             readOnly
+            ref={passwordRef}
           />
 
-          <button className="outline-none bg-sky-600 text-white px-3 py-0.5 shrink-0 ">
+          <button
+            onClick={copypassword}
+            className="outline-none bg-sky-600 text-white px-3 py-0.5 shrink-0 "
+          >
             Copy
           </button>
         </div>
